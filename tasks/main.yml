@@ -15,6 +15,7 @@
     - sickrage_restore
   docker_container:
     name: sickrage
+    restart: always
     image: linuxserver/sickrage
     pull: True
     state: started
@@ -44,6 +45,7 @@
     name: sickrage
     image: linuxserver/sickrage
     pull: True
+    restart: always
     state: started
     env:
      VIRTUAL_HOST: "{{ sickrage_domain_name }}"
