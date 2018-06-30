@@ -1,0 +1,58 @@
+- name: "Create proxy_net if it does not exist"
+  become: True
+  tags:
+    - sickrage_deploy
+    - sickrage_setup
+  docker_network:
+    name: proxy_net
+
+- name: "Start sickrage container w/ ssl"
+  when: SSL == True
+  become: True
+  tags:
+    - sickrage_deploy
+    - sickrage_update
+    - sickrage_restore
+  docker_container:
+    name: sickrage
+    image: linuxserver/sickrage
+    pull: True
+    state: started
+    env:
+     VIRTUAL_HOST: "{{ sickrage_domain_name }}"
+     VIRTUAL_PROTO: http
+     VIRTUAL_PORT: 8081
+     LETSENCRYPT_HOST: "{{ sickrage_letsencrypt_domain_name }}"
+     LETSENCRYPT_EMAIL: "{{ sickrage_letsencrypt_mail }}"
+     LETSENCRYPT_TEST: "{{ sickrage_letsencrypt_testmode }}"
+
+    networks:
+      - name: proxy_net
+    volumes:
+      - "{{ MOUNT_POINTS.mhddfs }}/sickrage/data:/config"
+      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/sickrage/:/downloads"
+      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/:/tv"
+
+- name: "Start sickrage container w/o SSL"
+  become: True
+  when: SSL == False
+  tags:
+    - sickrage_update
+    - sickrage_deploy
+    - sickrage_restore
+  docker_container:
+    name: sickrage
+    image: linuxserver/sickrage
+    pull: True
+    state: started
+    env:
+     VIRTUAL_HOST: "{{ sickrage_domain_name }}"
+     VIRTUAL_PROTO: http
+     VIRTUAL_PORT: 8081
+    networks:
+      - name: proxy_net
+    volumes:
+      - "{{ MOUNT_POINTS.mhddfs }}/sickrage/data:/config"
+      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/sickrage/:/downloads"
+      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/:/tv"
+
