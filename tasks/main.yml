@@ -30,9 +30,9 @@
     networks:
       - name: proxy_net
     volumes:
-      - "{{ MOUNT_POINTS.mhddfs }}/sickrage/data:/config"
-      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/sickrage/:/downloads"
-      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/:/tv"
+      - "{{ sickrage_data_folder }}"
+      - "{{ sickrage_tmp_downloads }}"
+      - "{{ sickrage_downloaded_files }}"
 
 - name: "Start sickrage container w/o SSL"
   become: True
@@ -54,7 +54,7 @@
     networks:
       - name: proxy_net
     volumes:
-      - "{{ MOUNT_POINTS.mhddfs }}/sickrage/data:/config"
-      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/sickrage/:/downloads"
-      - "{{ MOUNT_POINTS.mhddfs }}/Downloads/:/tv"
+      - "{{ sickrage_data_folder }}"
+      - "{{ sickrage_tmp_downloads }}"
+      - "{{ sickrage_downloaded_files }}"
 
