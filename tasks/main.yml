@@ -16,7 +16,7 @@
   docker_container:
     name: sickrage
     restart_policy: always
-    image: linuxserver/sickrage
+    image: linuxserver/sickchill
     pull: True
     state: started
     env:
@@ -43,7 +43,7 @@
     - sickrage_restore
   docker_container:
     name: sickrage
-    image: linuxserver/sickrage
+    image: linuxserver/sickchill
     pull: True
     restart_policy: always
     state: started
