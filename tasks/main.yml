@@ -22,7 +22,7 @@
     env:
      VIRTUAL_HOST: "{{ sickrage_domain_name }}"
      VIRTUAL_PROTO: http
-     VIRTUAL_PORT: 8081
+     VIRTUAL_PORT: '8081'
      LETSENCRYPT_HOST: "{{ sickrage_letsencrypt_domain_name }}"
      LETSENCRYPT_EMAIL: "{{ sickrage_letsencrypt_mail }}"
      LETSENCRYPT_TEST: "{{ sickrage_letsencrypt_testmode }}"
@@ -50,7 +50,7 @@
     env:
      VIRTUAL_HOST: "{{ sickrage_domain_name }}"
      VIRTUAL_PROTO: http
-     VIRTUAL_PORT: 8081
+     VIRTUAL_PORT: '8081'
     networks:
       - name: proxy_net
     volumes:
